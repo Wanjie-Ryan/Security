@@ -48,7 +48,7 @@ public class JwtAuthFilter extends OncePerRequestFilter {
         email = jwtService.extractEmail(jwt);
 
         // after extracting the token from the authHeader, we need to extract the email or whatever that was passed into the token using another class method.
-        // if useremail is null and user is not authenticated, wee fetch the suer details from the DB
+        // if userEmail is present and user is not authenticated, wee fetch the suer details from the DB
 
         if(email != null && SecurityContextHolder.getContext().getAuthentication() == null){
             UserDetails userDetails = this.userDetailsService.loadUserByUsername(email);
@@ -69,7 +69,8 @@ public class JwtAuthFilter extends OncePerRequestFilter {
 
         }
 
-
+        // call the filter chain and pass it to the next filter
+        filterChain.doFilter(request,response);
 
 
     }
