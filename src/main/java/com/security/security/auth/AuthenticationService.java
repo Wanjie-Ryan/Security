@@ -14,14 +14,14 @@ import org.springframework.stereotype.Service;
 
 @Service
 @RequiredArgsConstructor
-@Builder
+//@Builder
 public class AuthenticationService {
 
-    @Autowired
+//    @Autowired
     private UserRepository userRepo;
 
     private PasswordEncoder passwordEncoder;
-    @Autowired
+//    @Autowired
     private JwtService jwtService;
 
     private final AuthenticationManager authenticationManager;
