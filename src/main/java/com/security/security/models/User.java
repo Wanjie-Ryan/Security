@@ -19,6 +19,7 @@ import java.util.UUID;
 @Entity
 @Builder
 @Table (name = "users")
+// userDetails is an interface provided by spring security which provides authentication and authorization mechanisms
 public class User implements UserDetails {
 
     @Id
@@ -39,6 +40,7 @@ public class User implements UserDetails {
         }
     }
 
+    // Returns the authorities granted to the user.
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return List.of(new SimpleGrantedAuthority(role.name()));
@@ -54,23 +56,30 @@ public class User implements UserDetails {
         return email;
     }
 
+    // Indicates whether the user's account is expired. Returning true means the account is valid
     @Override
     public boolean isAccountNonExpired() {
         return true;
     }
 
+    // Indicates whether the user is locked or unlocked. Returning true means the account is not locked
     @Override
     public boolean isAccountNonLocked() {
         return true;
     }
 
+    // Indicates whether the user's credentials (password) are expired. Returning true means the credentials are valid.
     @Override
     public boolean isCredentialsNonExpired() {
         return true;
     }
+
+    // Indicates whether the user is enabled or disabled. Returning true means the user is enabled.
 
     @Override
     public boolean isEnabled() {
         return true;
     }
 }
+
+// Implementing UserDetails allows your User class to seamlessly integrate with Spring Security, making it easier to handle authentication and authorization. It leverages Spring Security's built-in mechanisms, reducing the amount of custom code you need to write and maintain.
