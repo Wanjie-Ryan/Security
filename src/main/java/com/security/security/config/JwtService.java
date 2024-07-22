@@ -14,6 +14,8 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.function.Function;
 
+// The JwtService class is responsible for generating, validating, and extracting information from JWT tokens. It uses the io.jsonwebtoken library for these operations.
+
 @Service
 public class JwtService {
 
@@ -39,6 +41,8 @@ public class JwtService {
     }
 
     // Generating a token using UserDetails alone
+    // This method generates a JWT token using only the UserDetails object.
+    //How It Works: It calls the second generateToken method, passing an empty HashMap for extra claims.
 
     public String generateToken(UserDetails userDetails){
         return generateToken(new HashMap<>(), userDetails);

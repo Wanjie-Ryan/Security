@@ -17,9 +17,12 @@ import org.springframework.web.filter.OncePerRequestFilter;
 
 import java.io.IOException;
 
+// This class is responsible for filtering HTTP requests and validating JWT tokens.
+//This filter intercepts every HTTP request to ensure the request has a valid JWT token and, if valid, sets up the security context for that request.
+
 // everytime a user sends a request from the frontend, the filter must be fired
 @Component
-@RequiredArgsConstructor
+@RequiredArgsConstructor // generates a constructor with required arguments (final fields or fields with @NonNull annotations).
 public class JwtAuthFilter extends OncePerRequestFilter {
 
     @Autowired
@@ -49,7 +52,10 @@ public class JwtAuthFilter extends OncePerRequestFilter {
 
         // after extracting the token from the authHeader, we need to extract the email or whatever that was passed into the token using another class method.
         // if userEmail is present and user is not authenticated, wee fetch the suer details from the DB
-
+        // Authenticate User: If the email is present and the user is not already authenticated:
+        //Load the user details from the database.
+        //Validate the token.
+        //Create an UsernamePasswordAuthenticationToken and set the authentication in the security context.
         if(email != null && SecurityContextHolder.getContext().getAuthentication() == null){
             UserDetails userDetails = this.userDetailsService.loadUserByUsername(email);
             if(jwtService.isTokenvalid(jwt, userDetails)){
